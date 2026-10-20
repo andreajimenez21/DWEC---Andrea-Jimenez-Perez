@@ -1,0 +1,1 @@
+// comun.js - funciones compartidas entre pantallas

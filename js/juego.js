@@ -1,0 +1,1 @@
+// juego.js - lógica del juego y puntuación

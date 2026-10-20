@@ -1,0 +1,1 @@
+// perfil.js - validación del perfil del jugador
