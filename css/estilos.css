@@ -71,3 +71,8 @@ button:hover {
 .suave {
   color: #777;
 }
+
+.ok {
+  color: #27ae60;
+  font-weight: bold;
+}
