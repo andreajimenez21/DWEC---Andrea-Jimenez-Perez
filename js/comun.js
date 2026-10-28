@@ -13,3 +13,14 @@ function calcularEdad(fechaNacimiento) {
     }
     return edad;
 }
+// REQUISITO 5: leer una cookie por su nombre
+function leerCookie(nombre) {
+  var lista = document.cookie.split("; ");
+  for (var i = 0; i < lista.length; i++) {
+    var partes = lista[i].split("=");
+    if (partes[0] == nombre) {
+      return partes[1];
+    }
+  }
+  return null;
+}
