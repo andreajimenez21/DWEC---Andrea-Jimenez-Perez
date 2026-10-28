@@ -31,3 +31,55 @@ Solicita al usuario la siguiente información:
     clase "contenedor".
 -->
 
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <style>
+    .resaltado {
+      background-color: yellow;
+      font-weight: bold;
+      padding: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 id="titulo">Bienvenido/a</h1>
+  <p class="descripcion">Este es un texto de prueba.</p>
+  <div class="contenedor">
+    <p class="resaltado">Este párrafo está dentro de un contenedor.</p>
+  </div>
+
+  <script>
+    // Cambiar el color del texto del h1
+    let nuevoColor = prompt("Introduce un color para el título (por ejemplo: 'blue' o '#ff0000'):");
+    if (nuevoColor) {
+      let titulo = document.getElementById("titulo");
+      titulo.style.color = nuevoColor;
+    }
+
+    // Confirmar si desea resaltar el párrafo y quitar el otro
+    let deseaResaltar = confirm("¿Quieres resaltar el texto de la descripción?");
+    if (deseaResaltar) {
+      // Importante guardar el ítem con clase "resaltado" porque al añadir la clase habría dos y solo detecta el primero
+      // Otra opción es añadir un ID al primer párrafo u otro selector
+      // Otra alernativa con  document.getElementsByClassName("descripcion")[0];
+      let parrafo1 = document.querySelector(".descripcion");
+      let parrafo2 = document.querySelector(".resaltado");
+      parrafo1.classList.add("resaltado");
+      parrafo2.classList.remove("resaltado");
+
+      // Confirmar si desea ocultar el contenedor
+      let deseaOcultar = confirm("¿Quieres ocultar el contenedor?");
+      if (deseaOcultar) {
+        let contenedor = document.querySelector(".contenedor");
+        contenedor.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+
+</html>
