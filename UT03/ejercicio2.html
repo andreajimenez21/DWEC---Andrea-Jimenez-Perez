@@ -1,10 +1,4 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Ejercicio 2 (Math y datos numéricos)</title>
-</head>
-<body>
+﻿
 <!--
 Ejercicio 2 (Math y datos numéricos)
 
@@ -26,5 +20,37 @@ Tu script debe:
   alto que 1.7976931348623157e+308 (es el máximo valor que admite JavaScript). Si la validación es
   correcta debería admitir este formato.
 -->
-</body>
+
+<!DOCTYPE html>
+<html>
+	<script>
+		// Solicitar datos al usuario
+		let precioBaseInput = prompt("Introduce el precio base del producto (€):");
+		let descuentoInput = prompt("Introduce el porcentaje de descuento (ej: 15.5):");
+
+		// Convertir entradas a números reales
+		let precioBase = parseFloat(precioBaseInput);
+		let descuento = parseFloat(descuentoInput);
+
+		// Validar entradas
+		if (isNaN(precioBase) || isNaN(descuento)) {
+			alert("Error: alguno de los valores introducidos no es numérico");
+		} else {
+			// Calcular descuento en euros
+			let precioFinal = precioBase - (precioBase * (descuento / 100));
+		
+			// Comprobamos si el resultado es infinito
+			if (isFinite(precioFinal)){
+				// Redondear a 2 decimales
+				let precioFinalRedondeado = precioFinal.toFixed(2);
+
+				// Mostrar resultados
+				alert(`Precio final: €${precioFinalRedondeado}`);
+			} else {
+				alert("El resultado es infinito");
+			}			
+		}
+	</script>
 </html>
+
+

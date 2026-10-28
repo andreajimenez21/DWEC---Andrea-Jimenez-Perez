@@ -1,11 +1,4 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Ejercicio 1 (Math y datos numéricos)</title>
-</head>
-<body>
-<!--
+﻿<!--
 Ejercicio 1 (Math y datos numéricos)
 
 Nota: en este bloque no es obligatorio crear un fichero externo con el script; se puede incluir directamente en el HTML.
@@ -15,5 +8,37 @@ Primero valida que el número introducido sea correcto con las funciones estudia
 Después genera un número aleatorio. Si los números coinciden el usuario habrá sido agraciado,
 en caso contrario no.
 -->
+<!DOCTYPE html>
+<html>
+	<script>
+		// Solicitar número al usuario
+		let entrada = prompt("Introduce un número del 1 al 10 para participar en el sorteo");
+		
+		let numeroUsuario = Number(entrada);
+
+		// Validar que es un número entre 1 y 10
+		if (!isFinite(numeroUsuario) || numeroUsuario < 1 || numeroUsuario > 10) {
+			alert("Número incorrecto. Debe ser un número entero entre 1 y 10.");
+		} else {
+			// Generar número aleatorio entre 1 y 10
+			/* A diferencia del tutorial, no parametrizamos y se multiplica directamente por 10.
+			   Esto nos da valores de 0 al 9 con decimales a los que tenemos que sumar el 
+			   rango mínimo (1 en este caso) y de ahí tenemos del 1 al 10 quitando la parte entera con floor  */			
+			const numeroGanador = Math.floor(Math.random() * 10) + 1;
+			//const numeroGanador = Math.ceil(Math.random() * 10);
+
+			// Mostrar resultado
+			alert("Número ganador: " + numeroGanador);
+
+			if (numeroUsuario === numeroGanador) {
+				alert("¡Felicidades! Has ganado el sorteo");
+			} else {
+				alert("Lo sentimos, no has ganado esta vez.");
+			}
+		}
+	</script>
+</html>
+
+
 </body>
 </html>

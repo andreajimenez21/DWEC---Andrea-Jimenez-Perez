@@ -1,10 +1,4 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Ejercicio 5 (Acceso y modificación documento HTML)</title>
-</head>
-<body>
+﻿
 <!--
 Ejercicio 5 (Acceso y modificación documento HTML)
 
@@ -27,5 +21,50 @@ getElementsByTagName, innerHTML y textContent.
 
 IMPORTANTE: Añade el script al final del HTML del body. Más adelante se estudiará el motivo.
 -->
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+	<h2>Nombre del alumno</h2>
+	<p id="notaFinal">Resultado de la evaluación:</p>
+	<div class="mensaje"></div>
+
+	<script>
+		// Solicitar nombre del alumno
+		let nombre = prompt("Introduce tu nombre y apellidos:");
+
+		// Solicitar nota y validarla
+		let nota;
+		do {
+			nota = prompt("Introduce tu nota (0 a 10):");
+		} while (isNaN(nota) || nota.trim() === "" || nota < 0 || nota > 10);
+
+		// Convertir a número
+		nota = Number(nota);
+
+		// Determinar calificación
+		let resultado = "";
+		if (nota < 5) {
+			resultado = "SUSPENSO";
+		} else if (nota < 6) {
+			resultado = "APROBADO";
+		} else if (nota < 7) {
+			resultado = "BIEN";
+		} else if (nota < 9) {
+			resultado = "NOTABLE";
+		} else {
+			resultado = "SOBRESALIENTE";
+		}
+
+		// Cambiar el texto del h2 usando getElementsByTagName
+		document.getElementsByTagName("h2")[0].textContent = nombre;
+
+		// Añadir la nota al párrafo con getElementById y innerHTML
+		document.getElementById("notaFinal").innerHTML = `<strong>Nota: ${nota}</strong>`;
+
+		// Mostrar resultado con querySelector y textContent
+		document.querySelector(".mensaje").textContent = `Resultado de la evaluación: ${resultado}`;
+  </script>
 </body>
 </html>

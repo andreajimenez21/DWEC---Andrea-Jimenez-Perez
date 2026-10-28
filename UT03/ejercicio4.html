@@ -1,10 +1,4 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Ejercicio 4 (Arrays y Date)</title>
-</head>
-<body>
+﻿
 <!--
 Ejercicio 4 (Arrays y Date)
 
@@ -26,5 +20,97 @@ válido, se convierte a Date y se mostrará por consola la siguiente informació
 - Verificar si cada fecha es en fin de semana.
 - Verificar si cada hora transcurre entre las 00:00 y las 08:00.
 -->
-</body>
+<!DOCTYPE html>
+<html>
+<head>
+	<script>
+		// Array para almacenar las fechas válidas
+		let fechas = [];
+
+		do {
+			let entrada = prompt("Introduce una fecha en formato válido de JavaScript:");
+			
+			// Almacenamos los string del usuario
+			fechas.push(entrada);		
+
+		} while (confirm("¿Quieres introducir otra fecha?"));
+
+		// Procesar las fechas válidas
+		//fechas.forEach((entrada, index) =>{
+		for (let entrada of fechas){		
+			let fecha = new Date(entrada);
+
+			// En caso de emplear forEach
+			//console.log(`Ítem nº${index}: ${entrada}`)
+
+			console.log(`Ítem: ${entrada}`)
+			
+			// No haría falta el método getTime y se puede validar isNaN directamente con el objeto Date
+			// Otra opción es validar directamente con Date.parse(entrada) y crear la fecha con new Date después
+			if (isNaN(fecha.getTime())) {
+				console.log(`Formato de fecha inválido`);
+			} else {
+				// Formateo personalizado: dd de mm de yyyy a las hh:mm
+				const meses = [
+					"enero", "febrero", "marzo", "abril", "mayo", "junio",
+					"julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+				];
+
+				// Opción manual
+				let dia = fecha.getDate();
+				let mes = meses[fecha.getMonth()];
+				let anio = fecha.getFullYear();
+
+				// Formateamos las horas y minutos con 0 en caso de cifras de 0 a 9
+				let horas = fecha.getHours().toString().padStart(2, '0');
+				let minutos = fecha.getMinutes().toString().padStart(2, '0');
+
+				console.log(`${dia} de ${mes} de ${anio}, ${horas}:${minutos}`);
+
+				// Opción con objeto DateTimeFormat
+				/*const opciones = { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" };
+
+				const formateada = new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
+				console.log(formateada); // "17 de junio de 2025, 10:30"*/
+
+				// Calcular diferencia con fecha actual
+				let ahora = new Date();
+
+				// En la diferencia en segundos podemos usar las fechas originales
+				let diferenciaSegundos = Math.floor(Math.abs(ahora.getTime() - fecha.getTime()) / 1000);
+				
+				// Lo más exacto para calcular la diferencia entre días es crear una fecha sin horas
+				let fecha1 = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()); // Solo fecha actual sin horas
+				let fecha2 = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate()); // Solo fecha de entrada sin horas				
+				
+				// También funciona fecha1 - fecha2 pero es menos eficiente
+				let diferenciaMs = Math.abs(fecha1.getTime() - fecha2.getTime());
+				
+				let diferenciaDias = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));				
+
+				console.log(`Diferencia con la fecha actual: ${diferenciaDias} días (${diferenciaSegundos} segundos)`);
+
+				// Sumar 5 días
+				let fechaMas5 = new Date(fecha);
+				fechaMas5.setDate(fechaMas5.getDate() + 5);
+				// El método toLocaleString() formatea la fecha según la región
+				console.log(`Fecha 5 días en adelante: ${fechaMas5.toLocaleString()}`);
+
+				// Verificar si es fin de semana
+				let diaSemana = fecha.getDay(); // 0 (domingo) - 6 (sábado)
+				let esFinDeSemana = (diaSemana === 0 || diaSemana === 6)? "Sí" : "No";
+				console.log(`¿Es fin de semana? ${esFinDeSemana}`);
+
+				// Verificar si es de madrugada (00:00 a 08:00)
+				let esMadrugada = (fecha.getHours() < 8)? "Sí" : "No";
+				console.log(`¿Es entre las 00:00 y 08:00? ${esMadrugada}`);
+			}
+		}
+		// Cierre en caso de emplear forEach
+		//}); 
+	</script>
+</head>
+<body>
+	<p>Mira los resultados en la consola y refresca para pedir más fechas...</p>
+</body>		
 </html>
