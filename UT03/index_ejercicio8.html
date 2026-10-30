@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<script>
+		window.onload = function () {
+			document.getElementById("abrir").addEventListener("click", function () {
+				let nombre = document.getElementById("nombre").value.trim();
+
+				// Validación si hay nombre
+				if (!nombre) {
+					alert("Por favor, introduce un nombre.");
+				} else {
+					// Abrimos la ventana emergente
+					const popup = window.open("pop-up_ejercicio8.html", "ventana", "width=400,height=300");
+
+					// Enviamos el mensaje con el nombre cuando la ventana está cargada
+					// También preparamos el manejo del evento en la ventana de destino
+					popup.addEventListener("DOMContentLoaded", () => {
+						popup.postMessage(nombre, "*");
+
+						popup.addEventListener("message", function (event) {
+							popup.document.getElementById("saludo").textContent = "Hola, " + event.data;
+						});						
+					});
+
+					// Recibimos mensaje desde el popup					
+					window.addEventListener("message", (event) => {
+						let frameResultado = window.frames.resultado;
+
+						// Se sobreescribe el iframe
+						if (frameResultado) {
+							frameResultado.document.body.innerHTML = "Mensaje recibido desde la ventana emergente: " + event.data;
+						}
+					});
+				}
+			});
+		};		
+	</script>
+</head>
+
+<body>
+	<h1>Ventana Principal</h1>
+
+	<iframe name="resultado" style="width:300px; height:150px; border:1px solid #000;"></iframe>
+
+	<div>
+		<!-- Campo de texto con el nombre -->
+		<label for="nombre">Introduce tu nombre:</label>
+		<input type="text" id="nombre" placeholder="Tu nombre">
+		<button id="abrir">Abrir ventana emergente</button>
+	</div>
+
+</body>
+
+</html>

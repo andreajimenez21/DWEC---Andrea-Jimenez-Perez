@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<script>
+		// Se recibe el mensaje cuando carga la página
+		document.addEventListener("DOMContentLoaded", () => {	
+			// Equivalente a manejar el evento desde aquí si no lo hacemos desde la pantalla principal
+			/*window.addEventListener("message", function (event) {
+				document.getElementById("saludo").textContent = "Hola, " + event.data;
+			});*/	
+			
+			// Botón para cerrar y enviar el mensaje
+			document.getElementById("cerrar").addEventListener("click", function () {
+				if (window.opener) {
+					window.opener.postMessage("¡Gracias por visitar la ventana emergente!", "*");
+				}
+				window.close();
+			});
+		});		
+	</script>
+</head>
+<body>
+  <h2 id="saludo">Hola</h2>
+  <button id="cerrar">Cerrar y enviar mensaje</button>  
+
+</body>
+</html>
