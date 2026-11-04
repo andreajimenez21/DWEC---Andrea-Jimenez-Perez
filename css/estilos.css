@@ -76,3 +76,10 @@ button:hover {
   color: #27ae60;
   font-weight: bold;
 }
+
+#panel {
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  background-color: #eef0ff;
+}
