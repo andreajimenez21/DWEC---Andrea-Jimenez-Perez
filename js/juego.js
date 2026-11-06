@@ -19,6 +19,13 @@ function cargarPanel() {
 
     // Método de Date: getDay() devuelve el día de la semana (0 = domingo)
     document.getElementById("diaNacimiento").textContent = "Naciste un " + dias[fecha.getDay()];
+    var panel = document.getElementById("panel");
+    if (edad < 18) {
+        panel.style.backgroundColor = "#d6e4ff"; // menores: azul claro
+    } else {
+        panel.style.backgroundColor = "#e8d9ff"; // mayores: lila claro
+    }
+
 }
 
 // REQUISITO 6: el script está en el head, así que esperamos a que cargue la página
