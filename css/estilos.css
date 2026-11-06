@@ -83,3 +83,15 @@ button:hover {
   margin-bottom: 15px;
   background-color: #eef0ff;
 }
+
+#btnAtaque {
+  background: #e74c3c;
+}
+
+#btnBonus {
+  background: #27ae60;
+}
+
+#btnTrampa {
+  background: #f39c12;
+}
