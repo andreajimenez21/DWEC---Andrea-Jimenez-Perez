@@ -95,3 +95,8 @@ button:hover {
 #btnTrampa {
   background: #f39c12;
 }
+
+.hecha {
+  color: #27ae60;
+  font-weight: bold;
+}

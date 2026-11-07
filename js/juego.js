@@ -1,3 +1,4 @@
+
 // juego.js - lógica del juego y puntuación
 
 // REQUISITO 2: formatear el nombre con métodos de String
@@ -28,6 +29,12 @@ function cargarPanel() {
         panel.style.backgroundColor = "#d9b3ff"; // mayores: lila claro
     }
 }
+
+// REQUISITO 3: array con los puntos que hay que alcanzar en cada misión
+const objetivos = [30, 60, 100];
+
+// REQUISITO 3: array donde guardamos las misiones que ya se han completado
+let completadas = [];
 let puntos = 0;
 
 // REQUISITO 3: número aleatorio entre min y max (Math.random y Math.floor)
@@ -35,8 +42,32 @@ function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// REQUISITO 3: mira los objetivos por orden y guarda con push los que se han conseguido
+function comprobarMisiones() {
+    let i = completadas.length; // posición de la siguiente misión pendiente
+    while (i < objetivos.length && puntos >= objetivos[i]) {
+        completadas.push(objetivos[i]);
+        i++;
+    }
+}
+
+// Pinta la lista de misiones (las completadas llevan un ✔)
+function mostrarMisiones() {
+    let texto = "";
+    for (let i = 0; i < objetivos.length; i++) {
+        if (i < completadas.length) {
+            texto = texto + "<li class='hecha'>✔ Llega a " + objetivos[i] + " puntos</li>";
+        } else {
+            texto = texto + "<li>Llega a " + objetivos[i] + " puntos</li>";
+        }
+    }
+    document.getElementById("listaMisiones").innerHTML = texto;
+}
+
 function mostrarPuntos() {
     document.getElementById("puntos").textContent = puntos;
+    comprobarMisiones();
+    mostrarMisiones();
 }
 
 // REQUISITO 3: ataque que suma entre 5 y 20 puntos
@@ -66,9 +97,9 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
     cargarPanel();
+    mostrarMisiones();
 
     document.getElementById("btnAtaque").addEventListener("click", atacar);
     document.getElementById("btnBonus").addEventListener("click", bonificacion);
     document.getElementById("btnTrampa").addEventListener("click", trampa);
 });
-
