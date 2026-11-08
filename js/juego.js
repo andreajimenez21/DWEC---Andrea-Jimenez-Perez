@@ -36,6 +36,14 @@ const objetivos = [30, 60, 100];
 let completadas = [];
 let puntos = 0;
 
+// REQUISITO 3: array con las pistas que se muestran en la ventana de ayuda
+const pistas = [
+    "Atacar da entre 5 y 20 puntos.",
+    "La bonificación da entre 1 y 15 puntos.",
+    "La trampa te quita puntos, ¡cuidado!",
+    "Llega a 100 puntos para completar todas las misiones."
+];
+
 // REQUISITO 3: número aleatorio entre min y max (Math.random y Math.floor)
 function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -103,6 +111,22 @@ function trampa() {
     mostrarPuntos();
 }
 
+// REQUISITO 4: ventana adicional con información del jugador
+function abrirAyuda() {
+    const nombre = formatearNombre(sessionStorage.getItem("nombre"));
+    const posicion = aleatorio(0, pistas.length - 1);
+
+    // window.open con la dirección vacía abre una ventana en blanco
+    const ventana = window.open("", "ayuda", "width=400,height=300");
+
+    // Escribimos dentro de la ventana nueva los datos del jugador
+    ventana.document.write("<h2>Ayuda para " + nombre + "</h2>");
+    ventana.document.write("<p>Puntos: " + puntos + "</p>");
+    ventana.document.write("<p>Misiones completadas: " + completadas.length + " de " + objetivos.length + "</p>");
+    ventana.document.write("<p>Pista: " + pistas[posicion] + "</p>");
+    ventana.document.close();
+}
+
 // REQUISITO 6: el script está en el head, así que esperamos a que cargue la página
 document.addEventListener("DOMContentLoaded", function () {
     // Si no hay jugador, volvemos al inicio
@@ -120,4 +144,5 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btnAtaque").addEventListener("click", atacar);
     document.getElementById("btnBonus").addEventListener("click", bonificacion);
     document.getElementById("btnTrampa").addEventListener("click", trampa);
+    document.getElementById("btnAyuda").addEventListener("click", abrirAyuda);
 });

@@ -1,1 +1,0 @@
-// ayuda.js - ventana adicional de ayuda
