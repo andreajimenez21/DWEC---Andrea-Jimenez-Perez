@@ -1,4 +1,3 @@
-
 // juego.js - lógica del juego y puntuación
 
 // REQUISITO 2: formatear el nombre con métodos de String
@@ -64,8 +63,23 @@ function mostrarMisiones() {
     document.getElementById("listaMisiones").innerHTML = texto;
 }
 
+// REQUISITO 5: guardar la partida y el récord
+function guardarPuntos() {
+    // sessionStorage: los puntos de la partida actual (se pierden al cerrar la pestaña)
+    sessionStorage.setItem("puntos", puntos);
+
+    // localStorage: el récord (se conserva aunque cierres el navegador)
+    // Number() convierte el texto guardado en número; si no existe, da 0
+    const record = Number(localStorage.getItem("record"));
+    if (puntos > record) {
+        localStorage.setItem("record", puntos);
+    }
+}
+
 function mostrarPuntos() {
+    guardarPuntos();
     document.getElementById("puntos").textContent = puntos;
+    document.getElementById("record").textContent = Number(localStorage.getItem("record"));
     comprobarMisiones();
     mostrarMisiones();
 }
@@ -96,8 +110,12 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "index.html";
         return;
     }
+
+    // REQUISITO 5: recuperamos los puntos de la partida guardada
+    puntos = Number(sessionStorage.getItem("puntos"));
+
     cargarPanel();
-    mostrarMisiones();
+    mostrarPuntos();
 
     document.getElementById("btnAtaque").addEventListener("click", atacar);
     document.getElementById("btnBonus").addEventListener("click", bonificacion);
